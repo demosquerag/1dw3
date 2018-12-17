@@ -36,5 +36,53 @@ public class Racional {
 		//return "Racional [numerador=" + numerador + ", denominador=" + denominador + "]";
 		return (this.numerador+"/"+this.denominador);
 	}
+	
+	// Getters and Setters
+	public double getNumerador() {
+		return numerador;
+	}
+
+	public void setNumerador(int numerador) {
+		this.numerador = numerador;
+	}
+
+	public double getDenominador() {
+		return denominador;
+	}
+
+	public void setImaginario(int denominador) {
+		this.denominador = denominador;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			// Si es el mismo objeto 
+			return true;
+		if (obj == null)
+			// Si el objeto que recibo NO existe
+			return false;
+		if (getClass() != obj.getClass())
+			// Si los objetos NO son de la misma clase
+			return false;
+		// Comparo las propiedades de los objetos
+		// Convierto el objeto a la clase a comparar
+		Complejo other = (Complejo) obj;
+		if(this.numerador == other.numerador && this.denominador == other.denominador) {
+			// Si los valores de las propiedades son iguales
+			return true;
+		}
+		return false;
+		
+		// Metodo dificil
+		/*
+		 * if (Double.doubleToLongBits(denominador) != Double.doubleToLongBits(other.denominador))
+			return false;
+		if (Double.doubleToLongBits(numerador) != Double.doubleToLongBits(other.numerador))
+			return false;
+		return true;
+		*/
+		
+	}
 
 }

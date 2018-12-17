@@ -81,7 +81,7 @@ public class Complejo {
 		// Convierto el objeto a la clase a comparar
 		Complejo other = (Complejo) obj;
 		if(this.real == other.real && this.imaginario == other.imaginario) {
-			// Si los valores de las propiedadesson iguales
+			// Si los valores de las propiedades son iguales
 			return true;
 		}
 		return false;
