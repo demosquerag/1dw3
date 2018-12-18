@@ -26,7 +26,7 @@ public class RacionalMain {
 		double d;
 		d = r2.getDenominador();
 		System.out.println("Denominador: "+ d); // Salida de texto por pantalla
-		r4.setDenominador(22); // 2 / 22
+		r4.setDenominador(4); // 2 / 4
 		System.out.println(r4); // Salida de texto por pantalla
 		
 		// Comprobacion facil
@@ -36,6 +36,17 @@ public class RacionalMain {
 		}
 		else {
 			System.out.println("Son diferentes");
+		}
+		
+		// compareTo
+		if (r4.compareTo(r2) > 0) {
+			System.out.println(r4 + " es MAYOR que "+ r2);
+		}
+		else if (r4.compareTo(r2) < 0) {
+			System.out.println(r4 + " es MENOR que "+ r2);
+		}
+		else {
+			System.out.println(r4 + " es IGUAL que "+ r2);
 		}
 		
 	}

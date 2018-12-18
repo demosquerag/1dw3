@@ -1,6 +1,6 @@
 package evaluacion2;
 
-public class Racional {
+public class Racional implements Comparable<Racional>{
 	// Defino la clase Racional con sus propiedades
 	private int numerador;
 	private int denominador;
@@ -50,7 +50,7 @@ public class Racional {
 		return denominador;
 	}
 
-	public void setImaginario(int denominador) {
+	public void setDenominador(int denominador) {
 		this.denominador = denominador;
 	}
 	
@@ -67,13 +67,14 @@ public class Racional {
 			return false;
 		// Comparo las propiedades de los objetos
 		// Convierto el objeto a la clase a comparar
-		Complejo other = (Complejo) obj;
-		if(this.numerador == other.numerador && this.denominador == other.denominador) {
-			// Si los valores de las propiedades son iguales
+		Racional other = (Racional) obj;
+		//double d1 = this.numerador / this.denominador;
+		//double d2 = other.numerador / other.denominador;
+		if ((this.numerador * other.denominador) == (other.numerador * this.denominador)) {
 			return true;
 		}
 		return false;
-		
+
 		// Metodo dificil
 		/*
 		 * if (Double.doubleToLongBits(denominador) != Double.doubleToLongBits(other.denominador))
@@ -83,6 +84,20 @@ public class Racional {
 		return true;
 		*/
 		
+	}
+
+	// CompareTo
+	@Override
+	public int compareTo(Racional other) {
+		// TODO Auto-generated method stub
+		if ((this.numerador * other.denominador) > (other.numerador * this.denominador)) {
+			return 1;
+		}
+			
+		else if ((this.numerador * other.denominador) < (other.numerador * this.denominador)) {
+			return -1;
+		}
+		return 0;
 	}
 
 }

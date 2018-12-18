@@ -1,6 +1,8 @@
 package evaluacion2;
 
-public class Complejo {
+import java.util.Scanner;
+
+public class Complejo implements Comparable<Complejo>{
 	private double real;
 	private double imaginario;
 	
@@ -97,5 +99,40 @@ public class Complejo {
 		
 	}
 
+	// CompareTo
+	@Override
+	public int compareTo(Complejo other) {
+		// TODO Auto-generated method stub
+		if (this.real > other.real) {
+			return 1;
+		}
+		
+		else if (this.real < other.real) {
+			return -1;
+		}
+		
+		else {
+			// Si la parte imaginaria es igual
+			if (this.imaginario > other.imaginario) {
+				return 1;
+			}
+			else if (this.imaginario < other.imaginario) {
+				return -1;
+			}
+			
+		}
+		return 0;
+	}
 	
+	// leer
+	void leer (Scanner teclado){
+		// lee por teclado las propiedades
+		// leo real
+		System.out.println("Real :");
+		this.real = teclado.nextDouble();
+		// leo imaginario
+		System.out.println("Imaginario :");
+		this.imaginario = teclado.nextDouble();
+	}
+
 }

@@ -1,5 +1,7 @@
 package evaluacion2;
 
+import java.util.Scanner;
+
 public class ComplejoMain {
 
 	public static void main(String[] args) {
@@ -7,7 +9,7 @@ public class ComplejoMain {
 		Complejo r1 = new Complejo(); // Llamada al constructor Complejo por defecto
 		r1.escribir(); // Salida de texto por pantalla por Contructor
 		
-		Complejo r2 = new Complejo(3.0, 6.0); // Llamada al constructor Complejo por defecto
+		Complejo r2 = new Complejo(3.0, 33.0); // Llamada al constructor Complejo por defecto
 		r2.escribir(); // Salida de texto por pantalla por Contructor
 		
 		Complejo r3 = new Complejo(3.0); // Llamada al constructor Complejo por defecto
@@ -37,7 +39,27 @@ public class ComplejoMain {
 		else {
 			System.out.println("Son diferentes");
 		}
-	
+		
+		// compareTo
+		if (r4.compareTo(r2) > 0) {
+			System.out.println(r4 + " es MAYOR que "+ r2);
+		}
+		else if (r4.compareTo(r2) < 0) {
+			System.out.println(r4 + " es MENOR que "+ r2);
+		}
+		else {
+			System.out.println(r4 + " es IGUAL que "+ r2);
+		}
+		
+		// leer
+		Scanner teclado = new Scanner (System.in);
+		
+		// leer r1
+		r1.leer(teclado);
+		System.out.println("Complejo leido" + r1);
+		
+		// cerrar teclado
+		teclado.close();
 	}
 
 }
