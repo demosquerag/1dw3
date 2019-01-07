@@ -1,5 +1,7 @@
 package evaluacion2;
 
+import java.util.Scanner;
+
 public class Racional implements Comparable<Racional>{
 	// Defino la clase Racional con sus propiedades
 	private int numerador;
@@ -98,6 +100,16 @@ public class Racional implements Comparable<Racional>{
 			return -1;
 		}
 		return 0;
+	}
+
+	void leer(Scanner teclado) {
+		// lee por teclado las propiedades
+		// leo numerador
+		System.out.println("Numerador :");
+		this.numerador = teclado.nextInt();
+		// leo denominador
+		System.out.println("Denominador :");
+		this.denominador = teclado.nextInt();
 	}
 
 }

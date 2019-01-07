@@ -3,6 +3,7 @@ package pruebas;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class calculadora {
 
@@ -20,18 +21,17 @@ public class calculadora {
 			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 			
 			//primer operando
-	        System.out.println("Inserta el primer operando por teclado");
-	        op1 = Float.parseFloat(bufferRead.readLine());
-	        
-	        //segundo operando
-	        System.out.println("Inserta el segundo operando por teclado");
-	        op2 = Float.parseFloat(bufferRead.readLine());
+	        op1 = calc.perdiNumero();
 	        
 	        //operacion
 	        System.out.println("Inserta la operacion (+, -, /, *) por teclado");
 	        operacion = bufferRead.readLine();
+	        
+	        //segundo operando
+	        op2 = calc.perdiNumDivision(operacion);
 
 	    }
+		
 	    catch(IOException e)
 	    {
 	        e.printStackTrace();
@@ -59,6 +59,26 @@ public class calculadora {
 		
 	}
 
+	private float perdiNumero() {
+		float num;
+		Scanner teclado = new Scanner (System.in);
+		System.out.println("Inserta op1: ");
+		num = teclado.nextFloat();
+		return num;
+	}
+
+	private float perdiNumDivision(String operacion) {
+		float num;
+		Scanner teclado = new Scanner (System.in);
+		do {
+			System.out.println("Inserta op2: ");
+			num = teclado.nextFloat();
+		}while (operacion.equals("/") && num==0) ;
+			return num;
+		
+		//teclado.close();
+	}
+
 	public double suma (float num1, float num2) {
 		return num1 + num2;
 	}
@@ -74,5 +94,4 @@ public class calculadora {
 	public double multiplicacion (float num1, float num2) {
 		return num1 * num2;
 	}
-	
 }

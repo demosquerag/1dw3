@@ -1,5 +1,7 @@
 package evaluacion2;
 
+import java.util.Scanner;
+
 public class RacionalMain {
 
 	public static void main(String[] args) {
@@ -48,6 +50,16 @@ public class RacionalMain {
 		else {
 			System.out.println(r4 + " es IGUAL que "+ r2);
 		}
+		
+		// leer
+		Scanner teclado = new Scanner (System.in);
+		
+		// leer r1
+		r1.leer(teclado);
+		System.out.println("Racional leido " + r1);
+		
+		// cerrar teclado
+		teclado.close();		
 		
 	}
 
