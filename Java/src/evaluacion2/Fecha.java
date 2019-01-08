@@ -2,10 +2,10 @@ package evaluacion2;
 
 import java.util.Scanner;
 
-public class Fecha {
-	private int dia;
-	private int mes;
-	private int año;
+public class Fecha implements Comparable<Fecha>{
+	int dia;
+	int mes;
+	int año;
 	
 	// Metodos
 	// Creacion de un constructor publico por defecto
@@ -60,7 +60,37 @@ public class Fecha {
 	public void setAño(int año) {
 		this.año = año;
 	}
+	
+	
+	// hascode and equals
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + año;
+		result = prime * result + dia;
+		result = prime * result + mes;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fecha other = (Fecha) obj;
+		if (año != other.año)
+			return false;
+		if (dia != other.dia)
+			return false;
+		if (mes != other.mes)
+			return false;
+		return true;
+	}
 
+	// Constructor de lectura por teclado
 	public void leerf(Scanner teclado) {
 		// lee por teclado las propiedades
 		// leo dia
@@ -72,6 +102,41 @@ public class Fecha {
 		// leo año
 		System.out.println("Año :");
 		this.año = teclado.nextInt();
+	}
+
+	// Constructor con el compareTo
+	@Override
+	public int compareTo(Fecha other) {
+		// Comparo las propiedades de los objetos
+		// de la clase Fecha
+		int comparacion = 0;
+		
+		// comparacion
+		if (this.año > other.año) {
+			comparacion = 1;
+		}
+		else if (this.año < other.año) {
+			comparacion = -1;
+		}
+		else {
+			// si el año es igual // comparo el mes
+			if (this.mes > other.mes) {
+				comparacion = 1;
+			}
+			else if (this.mes < other.mes) {
+				comparacion = -1;
+			}
+			else {
+				// si el mes es igual // comparo el dia
+				if (this.dia > other.dia) {
+					comparacion = 1;
+				}
+				else if (this.dia < other.dia) {
+					comparacion = -1;
+				}
+			}
+		}
+		return (comparacion);
 	}
 
 	

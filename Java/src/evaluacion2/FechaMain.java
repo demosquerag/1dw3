@@ -23,13 +23,33 @@ public class FechaMain {
 		f1.setAño(1999);
 		System.out.println(f1);
 		
+		
+		// hascode and equals
+		if(f3.equals(f2)) {
+			System.out.println(f3 + " y " + f2 + " son iguales." );
+		}
+		else {
+			System.out.println(f3 + " y " + f2 + " son diferentes." );
+		}
+		
+		// compareTo
+		if (f3.compareTo(f2) > 0) {
+			System.out.println(f3 + " es MAYOR que "+ f2);
+		}
+		else if (f3.compareTo(f2) < 0) {
+			System.out.println(f3 + " es MENOR que "+ f2);
+		}
+		else {
+			System.out.println(f3 + " es IGUAL que "+ f2);
+		}		
+		
 		// leer
 		Scanner teclado = new Scanner (System.in);
 		// leer f1
 		f1.leerf(teclado);
 		System.out.println("Fecha es: " + f1);
 		// cerrar teclado
-		teclado.close();		
+		teclado.close();	
 		
 	}
 
