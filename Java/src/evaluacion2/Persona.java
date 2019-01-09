@@ -1,6 +1,8 @@
 package evaluacion2;
 
-public class Persona {
+import java.util.Scanner;
+
+public class Persona implements Comparable<Persona>{
 	private String dni;
 	private String nombre;
 	private String apellido;
@@ -107,11 +109,32 @@ public class Persona {
 		return true;
 	}
 
+	// Constructor con el compareTo
+	public int compareTo(Persona other) {
+		return (this.dni.compareTo(other.dni));
+	}
+
 	// toString
 	@Override
 	public String toString() {
 		// Salida de texto
-		return ("DNI: "+this.dni+" Nombre: "+this.nombre+" Apellido: "+this.apellido+" Fecha Nacimiento: "+this.fechanacimiento);
+		System.out.println(this.dni+" "+this.nombre+" "+this.apellido+" "+this.fechanacimiento);
+		return (this.dni+" "+this.nombre+" "+this.apellido+" "+this.fechanacimiento);
+	}
+	
+	public void leer(Scanner teclado) {
+		// Pedir DNI
+		System.out.println("DNI :");
+		this.dni = teclado.nextLine();
+		// leo nombre
+		System.out.println("Nombre :");
+		this.nombre = teclado.nextLine();
+		// leo apellido
+		System.out.println("Apellido :");
+		this.apellido = teclado.nextLine();
+		// leo fechanacimiento
+		System.out.println("Fecha Nacimieto :");
+		this.fechanacimiento.leerf(teclado);
 	}
 
 	

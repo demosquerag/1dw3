@@ -1,5 +1,7 @@
 package evaluacion2;
 
+import java.util.Scanner;
+
 public class PersonaMain {
 
 	public static void main(String[] args) {
@@ -31,6 +33,23 @@ public class PersonaMain {
 		else {
 			System.out.println(p3 + " y " + p2 + " son diferentes." );
 		}
+		
+		// compareTo
+		if (p3.compareTo(p2) == 1) {
+			System.out.println(p3 + " es IGUAL que "+ p2);
+		}
+		else {
+			System.out.println(p3 + " es DIFERENTE que "+ p2);
+		}
+		
+		// leer
+		Scanner teclado = new Scanner (System.in);
+		// leer f1
+		p1.leer(teclado);
+		System.out.println("Persona: " + p1);
+		// cerrar teclado
+		teclado.close();
+		
 	}
 
 }
