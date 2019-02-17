@@ -2,6 +2,7 @@ package evaluacion2;
 
 import java.util.Scanner;
 
+
 public class Persona implements Comparable<Persona>{
 	private String dni;
 	private String nombre;
