@@ -9,7 +9,7 @@ public class XIII_Capicua {
 		int num;
 		int dm, um, c, d, u;
 		// 9 9 . 9 9 9 a cada guarismo lo llamaremos:
-		// dm um c d u: dm (decenas de millar), um:(unidades de millar)
+		//dm um c d u: dm (decenas de millar), um:(unidades de millar)
 		// c: (centenas), d: (decenas), u: (unidades)
 		Scanner teclado = new Scanner(System.in);
 		System.out.print("Introduzca un número entre 0 y 99.999: ");
