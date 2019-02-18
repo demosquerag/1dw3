@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,15 +19,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
-public class JFArrayPerson extends JFrame {
+public class JFArrayPerson2 extends JFrame {
 
 	// MAIN DE INICIO DE LA APLICACION
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JFArrayPerson frame = new JFArrayPerson();
+					JFArrayPerson2 frame = new JFArrayPerson2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,17 +52,18 @@ public class JFArrayPerson extends JFrame {
 	private JButton btnEliminar;
 	private JButton btnMostrar;
 	private JButton btnBuscar;
-	private JScrollPane scpPrincipal;
-	private JTable tblArray;
+	private JList lstArray;
 	
 	// Definir un modelo de tabla
 	DefaultTableModel tblar = new DefaultTableModel();
+	DefaultListModel lstar = new DefaultListModel();
 	
 	// Insertar arraylist personas
+	//Persona valor = new Persona();
 	ArrayList<Persona> personas = new ArrayList<Persona>();
 
 	// CLASE PUBLICA CON LOS COMPONENTES
-	public JFArrayPerson() {
+	public JFArrayPerson2() {
 		setResizable(false);
 		setTitle("JFrameArray_1");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,6 +117,12 @@ public class JFArrayPerson extends JFrame {
 				BtnInsertar();
 			}
 		});
+		
+		txtFechan = new JTextField();
+		txtFechan.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFechan.setBounds(128, 121, 86, 20);
+		pnlPrincipal.add(txtFechan);
+		txtFechan.setColumns(10);
 		btnInsertar.setFont(new Font("Arial", Font.BOLD, 11));
 		btnInsertar.setBounds(10, 167, 89, 23);
 		pnlPrincipal.add(btnInsertar);
@@ -143,33 +152,17 @@ public class JFArrayPerson extends JFrame {
 		btnBuscar.setBounds(307, 167, 89, 23);
 		pnlPrincipal.add(btnBuscar);
 		
-		scpPrincipal = new JScrollPane();
-		scpPrincipal.setBounds(10, 218, 386, 142);
-		pnlPrincipal.add(scpPrincipal);
-		
-		tblArray = new JTable();
-		tblArray.setFont(new Font("Arial", Font.PLAIN, 12));
-		tblArray.setShowVerticalLines(false);
-		tblar.addColumn("DNI");
-		tblar.addColumn("NOMBRE");
-		tblar.addColumn("APELLIDO");
-		tblar.addColumn("FEHCA_N");
-		tblArray.setModel(tblar);
-		scpPrincipal.setViewportView(tblArray);
-		
-		txtFechan = new JTextField();
-		txtFechan.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFechan.setBounds(128, 121, 86, 20);
-		pnlPrincipal.add(txtFechan);
-		txtFechan.setColumns(10);
+		lstArray = new JList();
+		lstArray.setBounds(10, 201, 386, 159);
+		pnlPrincipal.add(lstArray);
+		lstArray.setModel(lstar);
 		
 		
 	}
 		
 	private void BtnEliminar() {
 		// Recoger los datos de los campos a eliminar
-		int eli = tblArray.getSelectedRow();
-		
+		//int eli = lstArray.getSelectedRow();
 		Persona valor = new Persona();
 		// Recoger lo datos de los campos de texto	
 		valor.setDni(txtDni.getText());
@@ -186,12 +179,12 @@ public class JFArrayPerson extends JFrame {
 		}
 		
 		
-		if (eli >= 0) {
+		/**if (eli >= 0) {
 			tblar.removeRow(eli);
 		}
 		else {
 			JOptionPane.showMessageDialog(null,"No hay datos a eliminar");
-		}
+		}*/
 		
 		// Limpiar campos de texto
 		clearField();
@@ -199,9 +192,8 @@ public class JFArrayPerson extends JFrame {
 	
 	private void BtnInsertar() {
 		
-		// 
+		// Recoger lo datos de los campos de texto	
 		Persona valor = new Persona();
-		// Recoger lo datos de los campos de texto		
 		valor.setDni(txtDni.getText());
 		valor.setNombre(txtNombre.getText());
 		valor.setApellido(txtApellido.getText());
@@ -213,6 +205,7 @@ public class JFArrayPerson extends JFrame {
 		if (!personas.contains(valor)) {
 			// AÑADIR LA CADENA AL ARRAYLIST
 			personas.add(valor);
+			lstar.addElement(valor);
 			
 			System.out.println("La persona ( "+valor+" ) se ha añadido.");
 		}
@@ -238,8 +231,7 @@ public class JFArrayPerson extends JFrame {
 			
 			// Añadir los objetos a la tabla
 			Object[] per = {personas.get(i).getDni(), personas.get(i).getNombre(), personas.get(i).getApellido(), personas.get(i).getFechanacimiento()};
-			tblar.addRow(per);
-			tblArray.setModel(tblar);
+			//lstar.addRow(per);
 
 			
 			// Salida de texto por consola
@@ -255,5 +247,4 @@ public class JFArrayPerson extends JFrame {
 		txtApellido.setText("");
 		txtFechan.setText("");
 	}
-	
 }
