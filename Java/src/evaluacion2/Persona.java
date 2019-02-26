@@ -119,7 +119,7 @@ public class Persona implements Comparable<Persona>{
 	@Override
 	public String toString() {
 		// Salida de texto
-		System.out.println(this.dni+" "+this.nombre+" "+this.apellido+" "+this.fechanacimiento);
+		//System.out.println(this.dni+" "+this.nombre+" "+this.apellido+" "+this.fechanacimiento);
 		return (this.dni+" "+this.nombre+" "+this.apellido+" "+this.fechanacimiento);
 	}
 	

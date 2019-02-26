@@ -13,7 +13,7 @@ class CalculadoraTest {
 		res = calc.suma(2,2);
 		assertTrue(res == 4);
 		res = calc.suma(2,0);
-		assertTrue(res == 1);
+		assertFalse(res == 1);
 	}
 	
 	@Test
@@ -23,7 +23,7 @@ class CalculadoraTest {
 		res = calc.resta(4,2);
 		assertTrue(res == 2);
 		res = calc.resta(1,0);
-		assertTrue(res == 2);
+		assertFalse(res == 2);
 	}
 	
 	@Test
@@ -33,7 +33,7 @@ class CalculadoraTest {
 		res = calc.division(4,2);
 		assertTrue(res == 2);
 		res = calc.division(1,1);
-		assertTrue(res == 0);
+		assertFalse(res == 0);
 	}
 	
 	
@@ -44,7 +44,7 @@ class CalculadoraTest {
 		res = calc.multiplicacion(4,2);
 		assertTrue(res == 8);
 		res = calc.multiplicacion(1,0);
-		assertTrue(res == 2);
+		assertFalse(res == 2);
 	}
 	
 
