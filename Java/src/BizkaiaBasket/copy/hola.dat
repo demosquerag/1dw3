@@ -1,0 +1,209 @@
+/*
+if (VentanaLogin.cusuario.equals("o")) {
+			AbrirVentanas.vePObservador();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		} else if (VentanaLogin.cusuario.equals("u")) {
+			AbrirVentanas.vePUsuario();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}
+		*/
+
+/* ------------------------------------------------------------------------------------------
+ * Texto de VentanaLogin
+		/*usuario = txtUsuario.getText();
+		String password = new String(pwdPassword.getPassword());
+		String mensaje = "";
+
+		if (usuario.equals("Admin") && password.equals("admin")) {
+			// si los datos coinciden
+			cusuario = "a";
+			AbrirVentanas.vePAdmin();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}
+
+		else if (usuario.equals("Usuario") && password.equals("usuario")) {
+			// si los datos coinciden
+			cusuario = "u";
+			AbrirVentanas.vePUsuario();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}
+
+		else if (usuario.equals("Observador") && password.equals("")) {
+			// si los datos coinciden
+			cusuario = "o";
+			AbrirVentanas.vePObservador();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}
+		
+		else if (usuario.equals("") && password.equals("")) {
+			// si los datos coinciden
+			cusuario = "a";
+			AbrirVentanas.vePAdmin();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}
+
+		else {
+			// si los datos no coinciden
+			mensaje = "Usuario y/o Contraseï¿½a incorrectos.";
+		}
+		lblMensaje.setText(mensaje);*/
+
+		------------------------------------------------------------------------------------------*/
+
+/* ------------------------------------------------------------------------------------------
+ * Texto de VentanaVEquipos
+ 
+		/*if (VentanaLogin.cusuario.equals("o")) {
+			AbrirVentanas.vePObservador();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		} else if (VentanaLogin.cusuario.equals("u")) {
+			AbrirVentanas.vePUsuario();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}*/
+		
+		------------------------------------------------------------------------------------------*/
+		
+/* ------------------------------------------------------------------------------------------
+ * Texto de VentanaVEquipos
+ 
+		/*if (VentanaLogin.cusuario.equals("a")) {
+			AbrirVentanas.vePAdmin();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		} else if (VentanaLogin.cusuario.equals("u")) {
+			AbrirVentanas.vePUsuario();
+			dispose(); // Elimina el objeto en memoria (cierra la ventana)
+		}*/
+		
+		------------------------------------------------------------------------------------------*/
+
+/* ------------------------------------------------------------------------------------------
+ * Texto de JugadoresTableModel
+		/**
+	public static void BtnGJCrear() {
+		
+		// Necesidades previas para el array
+		Jugador X = new Jugador();
+		X.Dni=VentanaGJugadores.getTxtDNI();
+		X.Nombre=VentanaGJugadores.getTxtNombre();
+		X.Apellido=VentanaGJugadores.getTxtApellidos();
+		X.Equipo=VentanaGJugadores.getTxtEquipo();
+		
+		if (!jugadores.contains(X)) {
+			
+			// Añadir jugador al array
+			jugadores.add(X);
+			
+			// Mostrar arraylist ordenado
+			// Muestra de nuevo el Array
+			/**
+			 * 
+			for (int i=0; i < jugadores.size(); i++) {
+				
+				// Añadir los objetos a la tabla
+				Object[] juga = {jugadores.get(i).getDni(), jugadores.get(i).getNombre(), jugadores.get(i).getApellido(), jugadores.get(i).getEquipo()};
+				//JugadoresTableModel.;
+				VentanaGJugadores.getTblGJugadores().setModel(new JugadoresTableModel());
+
+				// Salida de texto por consola
+				System.out.println(jugadores.get(i));
+			}
+			// Salida de texto en caso de que no exista el jugador
+			JOptionPane.showMessageDialog(null,"El Jugador:  " + X + "  se ha añadido correctamente.");
+			// Salida de texto por consola
+			System.out.println("Dni: "+X.Dni +" Nombre: "+ X.Nombre +" Apellido: "+ X.Apellido+" Equipo: "+ X.Equipo);
+			
+		}
+		
+		else {
+			
+			// Salida de texto en caso de que ya exista el jugador
+			JOptionPane.showMessageDialog(null,"Este Jugador ya existe.");
+			// Salida de texto por consola
+			System.out.println("Este Jugador ya existe.");
+			
+		}
+		
+	}
+	*/
+	------------------------------------------------------------------------------------------*/
+	
+/* ------------------------------------------------------------------------------------------
+ * Texto de GUsuarios
+	
+	/*
+	 * public GUsuarios() { this.usuario = ""; this.password = ""; }
+	 * 
+	 * public GUsuarios(String u, String p) { this.usuario = u; this.password = p; }
+	 * 
+	 * public String getUsuario() { return usuario; }
+	 * 
+	 * public void setUsuario(String usuario) { this.usuario = usuario; }
+	 * 
+	 * public String getPassword() { return password; }
+	 * 
+	 * public void setPassword(String password) { this.password = password; }
+	 */
+
+	/*
+	 * static void clearField() { VentanaGUsuarios.txtUsuario.setText("");
+	 * VentanaGUsuarios.txtPassword.setText(""); }
+	 * 
+	 * static void BtnGUCrear() { // Necesidades previas String user =
+	 * VentanaGUsuarios.txtUsuario.getText(); String password =
+	 * VentanaGUsuarios.txtPassword.getText();
+	 * 
+	 * // Aï¿½adir datos al arraylist usuarios.add(new GUsuarios(user,password));
+	 * 
+	 * // Poner el contador de filas a 0 VentanaGUsuarios.tblgu.setRowCount(0);
+	 * 
+	 * // Insertar los datos for (int i = 0; i < usuarios.size(); i++) { Object[]
+	 * per = {usuarios.get(i).usuario, usuarios.get(i).password};
+	 * VentanaGUsuarios.tblgu.addRow(per);
+	 * 
+	 * // Limpiar campos clearField();
+	 * 
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
+	 
+	 ------------------------------------------------------------------------------------------*/
+	 
+/* ------------------------------------------------------------------------------------------
+ * Texto de Equipo
+ 
+	 /*public int puntosTotales;
+	public int faltasTotales;
+	public int triplesTotales;*/
+	
+	------------------------------------------------------------------------------------------*/
+	
+/* ------------------------------------------------------------------------------------------
+ * Texto de VentanaGUsuarios
+ 
+ /*public void run() { // Mï¿½todo run para poder cerrar la ventana actual al abrir otra (se ha sacado del constructor principal para evitar errores).
+		try {
+			VentanaGUsuarios frame = new VentanaGUsuarios();
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Para cerras la ventana cuando se solicite en el mï¿½todo del botï¿½n pulsado + dispose(); en mï¿½todo
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
+	
+	/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaLogin frame = new VentanaLogin();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}*/
+	
+	------------------------------------------------------------------------------------------*/
+	
