@@ -9,8 +9,8 @@ public class calculadora {
 
 	public static void main (String []args) {
 		
-		float op1 = 0, op2 = 0;
-		double res = 0;
+		float operando1 = 0, operando2 = 0;
+		double resultado = 0;
 		String operacion="";
 		
 		calculadora calc = new calculadora();
@@ -21,14 +21,14 @@ public class calculadora {
 			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 			
 			//primer operando
-	        op1 = calc.perdiNumero();
+	        operando1 = calc.perdiNumero();
 	        
 	        //operacion
 	        System.out.println("Inserta la operacion (+, -, /, *) por teclado");
 	        operacion = bufferRead.readLine();
 	        
 	        //segundo operando
-	        op2 = calc.perdiNumDivision(operacion);
+	        operando2 = calc.perdiNumDivision(operacion);
 
 	    }
 		
@@ -40,21 +40,21 @@ public class calculadora {
 		//hacemos la operacion correspondiente
 		switch(operacion) {
 		case "+":
-			res = calc.suma (op1, op2);
+			resultado = calc.suma (operando1, operando2);
 			break;
 		case "-":
-			res = calc.resta(op1, op2);
+			resultado = calc.resta(operando1, operando2);
 			break;
 		case "/":
-			res = calc.division(op1, op2);
+			resultado = calc.division(operando1, operando2);
 			break;
 		case "*":
-			res = calc.multiplicacion(op1, op2);
+			resultado = calc.multiplicacion(operando1, operando2);
 			break;
 			default:
 		}
 		
-		System.out.println("El resultado es: " + res);
+		System.out.println("El resultado es: " + resultado);
 		
 		
 	}
@@ -64,6 +64,7 @@ public class calculadora {
 		Scanner teclado = new Scanner (System.in);
 		System.out.println("Inserta op1: ");
 		num = teclado.nextFloat();
+		teclado.close();
 		return num;
 	}
 
@@ -73,10 +74,9 @@ public class calculadora {
 		do {
 			System.out.println("Inserta op2: ");
 			num = teclado.nextFloat();
+			teclado.close();
 		}while (operacion.equals("/") && num==0) ;
 			return num;
-		
-		//teclado.close();
 	}
 
 	public double suma (float num1, float num2) {
