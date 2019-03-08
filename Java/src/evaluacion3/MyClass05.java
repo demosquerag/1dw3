@@ -1,6 +1,6 @@
 package evaluacion3;
 
-public class MyClass5 {
+public class MyClass05 {
 
 	public static void main(String[] args) {
 		

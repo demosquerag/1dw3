@@ -2,7 +2,7 @@ package evaluacion3;
 
 import java.util.Scanner;
 
-public class MyClass6 {
+public class MyClass06 {
 
 	public static void main(String[] args) {
 		
