@@ -16,6 +16,7 @@ public class RANDOMNUMEROSECRETO {
 		// Generar numero aleatoriamente y sacar texto por consola
 		numero = ((int)(rnd.nextDouble()*100000.0))%10 + 1;
 		
+		
 		while (pedir != numero) {
 			System.out.println("Inserta un numero: ");
 			pedir = teclado.nextInt();

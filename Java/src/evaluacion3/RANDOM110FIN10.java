@@ -10,19 +10,13 @@ public class RANDOM110FIN10 {
 		Random rnd = new Random();
 		int numero = 0;
 		
-		// Repetitiva mientras numero no sea 10
-		while (numero !=  10) {
-			
+		do {
 			// Generar numero aleatoriamente y sacar texto por consola
 			numero = ((int)(rnd.nextDouble()*100000.0))%10 + 1;
 			System.out.println("Numero generado: "+numero);
-			
-			// Para cuando numero es igual a 10
-			if (numero == 10) {
-				break;
-			}
-			
 		}
+		// Repetitiva mientras numero no sea 10
+		while (numero !=  10);
 
 	}
 
