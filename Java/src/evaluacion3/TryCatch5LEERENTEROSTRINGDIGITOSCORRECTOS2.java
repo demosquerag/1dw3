@@ -25,12 +25,12 @@ public class TryCatch5LEERENTEROSTRINGDIGITOSCORRECTOS2 {
 
 			// Recorro caracter a caracter el String valor
 			for (int p = 0; p < valor.length(); p++) {
+				valor = valor.replace('l', '1').replace('o', '0').replace('O', '0');
 				caracter = valor.charAt(p);
 				
 				// Compreubo si es un digito valido
 				if (Character.isDigit(caracter)) {
 					valorcorregido += caracter;
-					String cambio = valor.replace("l", "1").replace("o", "0").replace("O", "0");
 				} 
 			}
 
