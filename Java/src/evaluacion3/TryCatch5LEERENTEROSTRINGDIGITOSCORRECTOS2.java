@@ -18,7 +18,7 @@ public class TryCatch5LEERENTEROSTRINGDIGITOSCORRECTOS2 {
 			// Convierto valor a int
 			n = Integer.parseInt(valor);
 		} catch (NumberFormatException nfe) {
-			
+
 			// Si se produce un Excepcion Corrijo el valor introducido en un entero valido
 			String valorcorregido = "";
 			char caracter;
@@ -27,11 +27,11 @@ public class TryCatch5LEERENTEROSTRINGDIGITOSCORRECTOS2 {
 			for (int p = 0; p < valor.length(); p++) {
 				valor = valor.replace('l', '1').replace('o', '0').replace('O', '0');
 				caracter = valor.charAt(p);
-				
+
 				// Compreubo si es un digito valido
 				if (Character.isDigit(caracter)) {
 					valorcorregido += caracter;
-				} 
+				}
 			}
 
 			// Convierto el String valorcorregido en entero
