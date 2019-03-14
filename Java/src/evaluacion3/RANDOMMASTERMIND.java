@@ -14,7 +14,7 @@ public class RANDOMMASTERMIND {
 		ArrayList<String> arraymastermind = new ArrayList<String>();
 		
 		String numerovalidoS = "";
-		String numero = "";
+		String numero;
 		int numerovalido = 0;
 		
 		// Generar numeros aleatorios que no se repitan en el arraylist
@@ -37,29 +37,27 @@ public class RANDOMMASTERMIND {
 			System.out.println("Inserta un numero: ");
 			numero = teclado.nextLine();
 			
-			if (numero.equals(numerovalidoS)) {
-				
-				for(int i=0; i<arraymastermind.size(); i++){
-					 
-					if(numero.equals(numerovalidoS.length()))
-						System.out.println( numero + " es igual a -> " + numerovalidoS);
-					else
-						System.out.println( numero + " es igual a -> "+ numerovalidoS);
+			// Comprobar que el numero insertado es de 4 digitos
+			if (numero.length()!=4) {
+				System.out.println("Error. Inserta un número de 4 digitos.");
+			}
+			
+			// Comparar los elementos del array con el numero insertado
+			for (int posa = 0; posa < arraymastermind.size(); posa++) {
+				for (int posn = 0; posn < numero.length(); posn++ ) {
+					if (arraymastermind.get(posa).equals(posn)) {
+						System.out.println("El numero del array ("+ arraymastermind.get(posa) +") es igual al numero introducido ("+ numero.charAt(posn) +")");
+					} 
+					System.out.println("El numero del array ("+ arraymastermind.get(posa) +") es diferente al numero introducido ("+ numero.charAt(posn) +")");
 				}
-				// Salida de texto de los numeros generados en el ArrayList
-				System.out.println("Numeros aleatorios generados son:");
-				for (String n : arraymastermind) {
-				    System.out.println(n + "");
-				}
-				break;
-			} 						
+			}
+								
 			
 		} while(!(numero.equals(numerovalidoS)));
 		
 		teclado.close();
 		
 		System.out.println("Has acertado, tu numero es: "+ numero + " y el numero secreto es: "+ numerovalidoS);
-	
 
 	}
 
