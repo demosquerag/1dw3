@@ -44,11 +44,16 @@ public class RANDOMMASTERMIND {
 			
 			// Comparar los elementos del array con el numero insertado
 			for (int posa = 0; posa < arraymastermind.size(); posa++) {
-				for (int posn = 0; posn < numero.length(); posn++ ) {
-					if (arraymastermind.get(posa).equals(posn)) {
+				int posn = 0;
+				
+				if (posn < numero.length()) {
+					if (arraymastermind.get(posa).equals(numero.charAt(posn))) {
 						System.out.println("El numero del array ("+ arraymastermind.get(posa) +") es igual al numero introducido ("+ numero.charAt(posn) +")");
-					} 
-					System.out.println("El numero del array ("+ arraymastermind.get(posa) +") es diferente al numero introducido ("+ numero.charAt(posn) +")");
+						posn++;
+					} else {
+						System.out.println("El numero del array ("+ arraymastermind.get(posa) +") es diferente al numero introducido ("+ numero.charAt(posn) +")");
+						posn++;
+					}
 				}
 			}
 								
