@@ -14,8 +14,9 @@ public class RANDOMMASTERMINDCLASE {
 			Random rnd = new Random();
 			int cifra;
 			String numero = "";
-			int posicioncorrecta;
-			
+			int posicioncorrecta = 0;
+			int cifrascorrectas = 0;
+			int posicionescorrectas = 0;
 			do {
 			//genero una cifra
 			cifra = ((int)(rnd.nextDouble()*100000.0))%10;
@@ -38,6 +39,8 @@ public class RANDOMMASTERMINDCLASE {
 			
 			//pido numeros de cuatro cifras
 			//hasta wue se acierte el numero
+			
+			do {
 			System.out.println("Introduce un numero:" );
 			numero = teclado.nextLine();
 			if(numero.length()==4) {
@@ -49,15 +52,19 @@ public class RANDOMMASTERMINDCLASE {
 				System.out.println("Cifra: " + cifra);
 				//compruebo si hay alguna cifra en el numero correcto
 				posicioncorrecta = numerocorrecto.indexOf(cifra); // devuelve la posocion o -1 no la encuentra
-					if(posicioncorrecta != 1) {
+					if(posicioncorrecta != -1) {
 						// compruebo si coincide la posicion
+						cifrascorrectas = cifrascorrectas+ 1;
 						if (posicion == posicioncorrecta) {
 							//si la posicion esta en la misma posicion
-							
+							posicionescorrectas = posicionescorrectas+ 1;
 						}
 					}
 				}
+				
+				System.out.println("Cifras correctas: "+ cifrascorrectas + ", Cifras en la posicion correcta: " + posicionescorrectas);
 			}
+			} while (posicionescorrectas < 4);
 			
 		//cierro teclado
 		teclado.close();
