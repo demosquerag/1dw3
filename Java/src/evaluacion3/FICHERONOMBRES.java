@@ -18,29 +18,37 @@ public class FICHERONOMBRES {
 		PrintWriter pw = null;
 		BufferedWriter bw = null;
 		Scanner teclado = new Scanner(System.in);
+		String escribir;
 		
 		try {
+			
 			fichero = new FileWriter("Nombres.txt");
 			pw = new PrintWriter(fichero);
 			bw = new BufferedWriter(pw);
-			//escribo una lineas
-			System.out.println("Introduce nombre: ");
-			bw.write(teclado.nextLine());
-			//cierro los recursos utilizados
+			
+			do {
+				// escribo una lineas
+				System.out.println("Introduce nombre: ");
+				escribir = teclado.nextLine();
+				bw.write(escribir);
+				bw.newLine();
+			} while (!(escribir.isEmpty()));
+
+			// cierro los recursos utilizados
 			bw.close();
 			pw.close();
 			fichero.close();
+			
+			// Cerrar teclado
+			teclado.close();
 			
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		// Cerrar teclado
-		teclado.close();
-		
+				
 		// Necesidades previas
-		//leo datos desde el fichero
+		// leo datos desde el fichero
 		File archivo = null;
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -53,7 +61,7 @@ public class FICHERONOMBRES {
 			while((linea=br.readLine())!=null) {
 				System.out.println(linea);
 			}
-			//cierro los recursos utilizados
+			// cierro los recursos utilizados
 			br.close();
 			fr.close();
 		}
