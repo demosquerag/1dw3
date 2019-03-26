@@ -44,13 +44,10 @@ public class ComplejoMainSerializable {
 			
 			fis=new FileInputStream("complejos.dat");
 			ois = new ObjectInputStream(fis);
-			
-			c = (Complejo) ois.readObject(); // convierte los bytes leídos en un objeto de la clase Complejo
+			// convierte los bytes leídos en un objeto de la clase Complejo
+			c = (Complejo) ois.readObject();
 			ois.close();
 			fis.close();
-			// Salida por consola
-			System.out.println("Valor leido: " + c);
-			
 		}
 		catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();

@@ -126,7 +126,7 @@ public class Complejo implements Comparable<Complejo>,Serializable{
 	}
 	
 	// leer
-	void leer (Scanner teclado){
+	public void leer (Scanner teclado){
 		// lee por teclado las propiedades
 		// leo real
 		System.out.println("Real :");

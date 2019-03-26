@@ -11,6 +11,7 @@ public class TryCatchEXCEPCIONARITMETICA {
 		try {
 			
 			n = numerador / 0;
+			System.out.println(n);
 			
 		} catch (ArithmeticException ae) {
 			
