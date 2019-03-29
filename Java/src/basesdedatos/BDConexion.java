@@ -25,7 +25,7 @@ public class BDConexion {
 			// Preparo una consulta
 			String consulta = "SELECT * FROM alumnos";
 			// Ejecuto la consulta
-			ResultSet rs = st.executeQuery("SELECT * FROM alumnos");
+			ResultSet rs = st.executeQuery(consulta);
 			// RECORRO LOS REGISTROS DEVUELTOS
 			while (rs.next()){
 				System.out.println("DNI: " + rs.getObject("dni") + ", nombre: " + rs.getObject("nombre") + ", Apellidos: " + rs.getObject("apellidos") + ", Grupo: " + rs.getObject("grupo"));
