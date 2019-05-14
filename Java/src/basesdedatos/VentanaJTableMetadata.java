@@ -2,6 +2,8 @@ package basesdedatos;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-public class VentanaJTable extends JFrame {
+public class VentanaJTableMetadata extends JFrame {
 
 	private static final long serialVersionUID = -9077118071788019311L;
 	private static JPanel Contenedor;
@@ -32,7 +34,7 @@ public class VentanaJTable extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaJTable frame = new VentanaJTable();
+					VentanaJTableMetadata frame = new VentanaJTableMetadata();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +43,8 @@ public class VentanaJTable extends JFrame {
 		});
 	}
 
-	public VentanaJTable() {
-		setTitle("VentanaJTable");
+	public VentanaJTableMetadata() {
+		setTitle("VentanaJTableMetadata");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		Contenedor = new JPanel();
@@ -55,6 +57,11 @@ public class VentanaJTable extends JFrame {
 		Contenedor.add(lblTexto, BorderLayout.NORTH);
 		
 		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Exit();
+			}
+		});
 		Contenedor.add(btnSalir, BorderLayout.SOUTH);
 	
 		//abro la concexion (conectarse a MySQL
@@ -80,16 +87,6 @@ public class VentanaJTable extends JFrame {
 			// creo el vector para los datos de la tabla
 			Vector<Vector<String>> datosTabla = new Vector<Vector<String>>();
 			
-			// añado uno a uno los alumnos al vector de datos
-			while (rs.next()) {
-				Vector<String> fila = new Vector<String>();
-				fila.add(rs.getString("dni"));
-				fila.add(rs.getString("nombre"));
-				fila.add(rs.getString("apellidos"));
-				fila.add(rs.getString("grupo"));
-				fila.add("\n\n\n\n\n\n\n");
-				datosTabla.add(fila);
-			}	
 			// cierro el ResultSet
 			rs.close();
 			// cierro el Statement despues de realizar la consulta
@@ -123,6 +120,12 @@ public class VentanaJTable extends JFrame {
 		}
 	}
 	
-	
+	public void Exit() {
+		// Salir de la aplicacion
+		// VentanaJTableRowSet vl = new VentanaJTableRowSet();
+		// vl.setVisible(false);
+		dispose();
+		
+	}
 }
 
