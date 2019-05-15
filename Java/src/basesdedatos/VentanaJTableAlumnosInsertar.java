@@ -67,6 +67,34 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 		lblTexto = new JLabel("Datos de los Alumnos");
 		lblTexto.setHorizontalAlignment(SwingConstants.CENTER);
 		Contenedor.add(lblTexto, BorderLayout.NORTH);
+		
+		panel = new JPanel();
+		Contenedor.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		btnSalir = new JButton("Salir");
+		panel.add(btnSalir);
+		
+		btnInsertar = new JButton("Insertar");
+		btnInsertar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnInsertarAlumno();
+			}
+		});
+		panel.add(btnInsertar);
+		
+		btnActualizarTabla = new JButton("ActuTabla");
+		btnActualizarTabla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ActualizarChache();
+			}
+		});
+		panel.add(btnActualizarTabla);
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Exit();
+			}
+		});
 	
 		//abro la concexion conectarse a MySQL
 		try {
@@ -122,33 +150,6 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 			tabla.setAutoCreateRowSorter(true);
 			tabla.getTableHeader().setReorderingAllowed(false);
 			
-			panel = new JPanel();
-			Contenedor.add(panel, BorderLayout.SOUTH);
-			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			
-			btnSalir = new JButton("Salir");
-			panel.add(btnSalir);
-			
-			btnInsertar = new JButton("Insertar");
-			btnInsertar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					btnInsertarAlumno();
-				}
-			});
-			panel.add(btnInsertar);
-			
-			btnActualizarTabla = new JButton("ActuTabla");
-			btnActualizarTabla.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					ActualizarChache();
-				}
-			});
-			panel.add(btnActualizarTabla);
-			btnSalir.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					Exit();
-				}
-			});
 				
 			} catch (SQLException e) {
 			e.printStackTrace();
