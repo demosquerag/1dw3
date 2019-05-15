@@ -147,6 +147,7 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 				return false;
 				}
 			};
+			
 			tabla = new JTable(dtmTabla);
 			
 			// creo el Scroll panel y le añado la tabla
