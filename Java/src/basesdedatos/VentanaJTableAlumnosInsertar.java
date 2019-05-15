@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,8 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetFactory;
-import javax.sql.rowset.RowSetProvider;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,7 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 	boolean modificado = false;
 	Connection conexion = null;
 	CachedRowSet crs;
+	ResultSet rs;
 	Vector <String> columnas;
 	Vector<Vector<String>> datosTabla;
 	private JButton btnActualizarTabla;
@@ -86,7 +88,7 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 		btnActualizarTabla = new JButton("ActuTabla");
 		btnActualizarTabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ActualizarChache();
+				btnActualizarTabla();
 			}
 		});
 		panel.add(btnActualizarTabla);
@@ -100,34 +102,40 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 		try {
 			// me conecto usando una conexion
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdalumnos", "root", "");
-			// desactivo la actualizacion automatica de datos
-			conexion.setAutoCommit(false);
-			// creo el CachedRowSet y RowSetFactory
-			RowSetFactory myRowSetFactory = null;
-			myRowSetFactory = RowSetProvider.newFactory();
-			crs = myRowSetFactory.createCachedRowSet();
-			// selecciono todos los alumnos
-			// usando la conexion anterior
-			crs.setCommand("SELECT * FROM alumnos");
-			crs.execute(conexion);
+			//creo un Statement st = conexion.createStatement();
+			Statement st = conexion.createStatement();
+			//preparo la cosulta
+			String Consulta = "SELECT * FROM alumnos";
+			//ejecuto la consulta 
+			ResultSet rs = st.executeQuery(Consulta);
+			
 			// cabeceras de las columnas
+			ResultSetMetaData metaDatos = rs.getMetaData();
+			// Se obtiene el número de columnas.
+			int numeroColumnas = metaDatos.getColumnCount();
 			columnas = new Vector<String>();
-			columnas.add("DNI");
-			columnas.add("Nombre");
-			columnas.add("Apellidos");
-			columnas.add("Grupo");
+			// Se obtiene cada una de las etiquetas para cada columna
+			for (int i = 0; i < numeroColumnas; i++){
+			// cojo el valor de la etiqueta de la columna
+			// los índices del rs empiezan en 1 pero los índices de las columnas empiezan en 0
+			columnas.add(metaDatos.getColumnLabel(i + 1));
+			}
 			// creo el vector para los datos de la tabla
 			datosTabla = new Vector<Vector<String>>();
 			// añado uno a uno los alumnos al vector de datos
-			while (crs.next()) {
+			while (rs.next()) {
 				Vector<String> fila = new Vector<String>();
-				fila.add(crs.getString("dni"));
-				fila.add(crs.getString("nombre"));
-				fila.add(crs.getString("apellidos"));
-				fila.add(crs.getString("grupo"));
+				fila.add(rs.getString("dni"));
+				fila.add(rs.getString("nombre"));
+				fila.add(rs.getString("apellidos"));
+				fila.add(rs.getString("grupo"));
 				fila.add("\n\n\n\n\n\n\n");
 				datosTabla.add(fila);
 			}
+			// cierro el ResultSet
+			rs.close();
+			// cierro el Statement despues de realizar la consulta
+			st.close();
 			// cierro la conexion con la base de datos
 			conexion.close();		
 			// creo la JTable
@@ -151,10 +159,10 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 			tabla.getTableHeader().setReorderingAllowed(false);
 			
 				
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+				
 	}
 	
 	public void Exit() {
@@ -164,42 +172,30 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 	
 	public void btnInsertarAlumno() {
 		try{
+			// Conectar a la base de datos
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdalumnos", "root", "");
+			// creo un Statement st = conexion.createStatement();
+			Statement st = conexion.createStatement();
+			// Crear los strings
 			String dni = "00000000A";
 			String nombre = "N0";
 			String apellidos = "A0";
 			String grupo = "1DW3";
-			// Conectar a la base de datos
-			// conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdalumnos", "root", "");
-			// usando la conexion anterior
-			// crs.setCommand("INSERT INTO alumnos VALUES ('"+dni+"','"+nombre+"','"+apellidos+"','"+grupo+"')");
-			// crs.execute(conexion);
-			// añado el registro al CachedRowSet
-			crs.moveToInsertRow();
-			crs.updateString(1, dni);
-			crs.updateString(2, nombre);
-			crs.updateString(3, apellidos);
-			crs.updateString(4, grupo);
-			crs.insertRow();
-			crs.moveToCurrentRow();
-			// actualizo el valor de modificado
-			modificado = true;
+			String Consulta = "INSERT INTO alumnos VALUES ('"+dni+"','"+nombre+"','"+apellidos+"','"+grupo+"')";
+			//ejecuto la consulta 
+			st.executeUpdate(Consulta);
+			System.out.println(Consulta);
+			// cierro el Statement despues de realizar la consulta
+			st.close();
+			// cierro la conexion con la base de datos
+			conexion.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(Contenedor,(String)"Error. No se ha podido añadir el registro","Error",JOptionPane.ERROR_MESSAGE,null);
 		}
 	}
 	
-	public void ActualizarChache() {
-		if (modificado){
-			try {
-				conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdalumnos", "root", "");
-				// si se ha conectado correctamente
-				// desactivo la actualizacion automatica de datos
-				conexion.setAutoCommit(false);
-				crs.acceptChanges(conexion);
-			} catch (SQLException sqle) {
-				JOptionPane.showMessageDialog(Contenedor,(String)"Error. No se han podido grabar los datos","Error",JOptionPane.ERROR_MESSAGE,null);
-			}
-		}
+	public void btnActualizarTabla() {
+		
 	}
 		
 }

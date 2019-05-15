@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.JFrame;
@@ -30,6 +31,7 @@ public class VentanaJTableRowSetMetadata extends JFrame {
 	private JButton btnSalir;
 	private DefaultTableModel dtmTabla;
 	private JTable tabla;
+	Vector <String> columnas;
 
 
 	public static void main(String[] args) {
@@ -83,12 +85,17 @@ public class VentanaJTableRowSetMetadata extends JFrame {
 			crs.execute(conexion);
 			
 			
-			// cabeceras de la tabla columnas
-			Vector <String> columnas = new Vector<String>();
-			columnas.add("DNI");
-			columnas.add("Nombre");
-			columnas.add("Apellidos");
-			columnas.add("Grupo");
+			// cabeceras de las columnas
+			ResultSetMetaData metaDatos = crs.getMetaData();
+			// Se obtiene el número de columnas.
+			int numeroColumnas = metaDatos.getColumnCount();
+			columnas = new Vector<String>();
+			// Se obtiene cada una de las etiquetas para cada columna
+			for (int i = 0; i < numeroColumnas; i++){
+			// cojo el valor de la etiqueta de la columna
+			// los índices del rs empiezan en 1 pero los índices de las columnas empiezan en 0
+			columnas.add(metaDatos.getColumnLabel(i + 1));
+			}
 			
 			// creo el vector para los datos de la tabla
 			Vector<Vector<String>> datosTabla = new Vector<Vector<String>>();

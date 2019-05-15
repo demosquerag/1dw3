@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
@@ -32,6 +33,7 @@ public class VentanaJTableCalificaciones extends JFrame {
 	private DefaultTableModel dtmTabla;
 	private JTable tabla;
 	private TableRowSorter<TableModel> metodoOrdenacion;
+	Vector <String> columnas;
 
 
 	public static void main(String[] args) {
@@ -81,11 +83,17 @@ public class VentanaJTableCalificaciones extends JFrame {
 			//ejecuto la consulta 
 			ResultSet rs = st.executeQuery(Consulta);
 			
-			// cabeceras de la tabla columnas
-			Vector <String> columnas = new Vector<String>();
-			columnas.add("DNI");
-			columnas.add("Codigo Asignatura");
-			columnas.add("Nota");
+			// cabeceras de las columnas
+			ResultSetMetaData metaDatos = rs.getMetaData();
+			// Se obtiene el número de columnas.
+			int numeroColumnas = metaDatos.getColumnCount();
+			columnas = new Vector<String>();
+			// Se obtiene cada una de las etiquetas para cada columna
+			for (int i = 0; i < numeroColumnas; i++){
+			// cojo el valor de la etiqueta de la columna
+			// los índices del rs empiezan en 1 pero los índices de las columnas empiezan en 0
+			columnas.add(metaDatos.getColumnLabel(i + 1));
+			}
 			
 			// creo el vector para los datos de la tabla
 			Vector<Vector<String>> datosTabla = new Vector<Vector<String>>();
