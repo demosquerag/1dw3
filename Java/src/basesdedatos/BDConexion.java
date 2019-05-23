@@ -5,11 +5,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class BDConexion {
 
 	public static void main(String[] args) {
+		ArrayList <String> alumnos = new ArrayList<>();
 		
 		try {
 			
@@ -41,6 +43,11 @@ public class BDConexion {
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
+		System.out.println("---------- ---------- ---------- ----------");
+		for (int i = 0; i < alumnos.size(); i++) {
+			System.out.println(alumnos.get(i));
+		}
+		
 		
 	}
 
