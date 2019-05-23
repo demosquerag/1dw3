@@ -196,7 +196,7 @@ public class VentanaJTableAlumnosInsertar extends JFrame {
 	}
 	
 	public void btnActualizarTabla() {
-		
+		//Mostrar la tabla Entera como al principio
 	}
 		
 }
