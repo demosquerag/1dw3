@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class BDUpdateAlumno {
+public class BDDeleteAlumno {
 
 	public static void main(String[] args) {
 		
@@ -20,25 +20,25 @@ public class BDUpdateAlumno {
 			
 			// Creo un statement
 			Statement st = conexion.createStatement();
-			// abro una nueva instancia del Statement
-			st = conexion.createStatement();
-			// actualizo el valor del grupo del alumno '11111111A' a '1DW3'
-			st.executeUpdate("UPDATE alumnos SET grupo='1DW3' WHERE dni='11111111A'");
+			
+			// Preparo una consulta
+			String consulta = "DELETE FROM alumnos WHERE dni = '12345678A'";
+			// Ejecuto la consulta
+			st.executeUpdate(consulta);
 			// cierro el Statement despues de realizar la consulta
 			st.close();
-			
-			// Creo un statement
+			// Creo un nuevo statement
 			Statement st2 = conexion.createStatement();
 			// Preparo una consulta
-			String consulta = "SELECT * FROM alumnos";
+			String consulta2 = "SELECT * FROM alumnos";
 			// Ejecuto la consulta
-			ResultSet rs = st2.executeQuery(consulta);
+			ResultSet rs = st2.executeQuery(consulta2);
 			// RECORRO LOS REGISTROS DEVUELTOS
 			while (rs.next()){
 				System.out.println("DNI: " + rs.getObject("dni") + ", nombre: " + rs.getObject("nombre") + ", Apellidos: " + rs.getObject("apellidos") + ", Grupo: " + rs.getObject("grupo"));
 			}
 			// cierro el Statement despues de realizar la consulta
-			st2.close();
+			st.close();
 			// cierro el ResultSet
 			rs.close();
 			// Cierro conexion
@@ -46,6 +46,7 @@ public class BDUpdateAlumno {
 			
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
+			System.out.println("Se ha producido un error.");
 		}
 
 	}
