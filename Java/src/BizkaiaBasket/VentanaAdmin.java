@@ -1,7 +1,6 @@
 package BizkaiaBasket;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -14,9 +13,7 @@ import java.awt.event.ActionEvent;
 
 public class VentanaAdmin extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panelAdmin;
@@ -37,9 +34,6 @@ public class VentanaAdmin extends JFrame {
 		}
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VentanaAdmin() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

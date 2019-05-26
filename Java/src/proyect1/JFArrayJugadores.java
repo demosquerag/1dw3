@@ -5,8 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import evaluacion2.Persona;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -51,13 +49,13 @@ public class JFArrayJugadores extends JFrame implements ActionListener {
 	private JButton btnGuardar;
 	private JButton btnBorrar;
 	private JButton btnLimpiar;
-	private JList lstAJ;
+	private JList<String> lstAJ;
 
 	// Crear arraylist jugadores
 	ArrayList <Jugador> jugadores = new ArrayList <Jugador>();
 	
 	// Crear modelo de JList
-	DefaultListModel lstar = new DefaultListModel<>();
+	DefaultListModel<String> lstar = new DefaultListModel<>();
 
 	public JFArrayJugadores() {
 		setResizable(false);
@@ -169,7 +167,7 @@ public class JFArrayJugadores extends JFrame implements ActionListener {
 		btnLimpiar.setBounds(501, 42, 89, 23);
 		pnlPrincipal.add(btnLimpiar);
 		
-		lstAJ = new JList();
+		lstAJ = new JList<>();
 		lstAJ.setBounds(10, 76, 908, 214);
 		pnlPrincipal.add(lstAJ);
 		lstAJ.setModel(lstar);
@@ -198,7 +196,7 @@ public class JFArrayJugadores extends JFrame implements ActionListener {
 			// Añadir jugador al array
 			jugadores.add(j);
 			// Añadir el jugador al JList
-			lstar.addElement(j);
+			lstar.addElement(j.toString());
 			
 			System.out.println("Ese/a jugador/a ( "+j+" ) se ha añadido.");
 		}

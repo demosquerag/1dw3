@@ -35,7 +35,7 @@ public class ComplejoMainSerializableArrayList {
 			oos.close();
 			
 			// guarda los bytes en el array de tipo byte y de nombre bytes
-			byte[] bytes = baos.toByteArray();
+			// byte[] bytes = baos.toByteArray();
 			
 			if (alComplejo.isEmpty()) {
 				
