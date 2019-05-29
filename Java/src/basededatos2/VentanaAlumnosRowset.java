@@ -125,7 +125,7 @@ public class VentanaAlumnosRowset extends JFrame {
 		bntActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Guardar la modificacion en el CachedRowSet
-				JTableActualizar();
+				JTableActualizarCachedRowset();
 			}
 		});
 		bntActualizar.setBackground(Color.WHITE);
@@ -270,7 +270,72 @@ public class VentanaAlumnosRowset extends JFrame {
 	}
 	
 	// Metodo para actualizar la tabla con los datos
-	private void JTableActualizar() {
+	private void JTableActualizarJtable() {
+		try {
+			// Creo la conexion
+			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdalumnos", "root", "");
+			// Si se ha conectado correctamente 
+			// System.out.println("Conexión Correcta.");
+			
+			// desactivo la actualizacion automatica de datos
+			conexion.setAutoCommit(false);
+			// creo el CachedRowSet
+			RowSetFactory myRowSetFactory = null;
+			myRowSetFactory = RowSetProvider.newFactory();
+			crs = myRowSetFactory.createCachedRowSet();
+			// selecciono todos los alumnos
+			// usando la conexion anterior
+			crs.setCommand("SELECT * FROM alumnos");
+			crs.execute(conexion);
+			
+			// Cabeceras de la tabla columnas
+			Vector <String> columnas = new Vector<String>();
+			columnas.add("DNI");
+			columnas.add("Nombre");
+			columnas.add("Apellidos");
+			columnas.add("Grupo");
+			
+			// Creo el vector para los datos de la tabla
+			Vector<Vector<String>> datosTabla = new Vector<Vector<String>>();
+			
+			// Agrego uno a uno los alumnos al vector de datos
+			while (crs.next()) {
+				Vector<String> fila = new Vector<String>();
+				fila.add(crs.getString("dni"));
+				fila.add(crs.getString("nombre"));
+				fila.add(crs.getString("apellidos"));
+				fila.add(crs.getString("grupo"));
+				fila.add("\n\n\n\n\n\n\n");
+				datosTabla.add(fila);
+			}
+			
+			// Cierro el ResultSet
+			crs.close();
+			// Cierro la conexion
+			conexion.close();
+			
+			// creo la JTable
+			dtmTabla = new DefaultTableModel(datosTabla, columnas){
+				private static final long serialVersionUID = -5029586722185735524L;
+				@Override
+				public boolean isCellEditable(int row, int column) {
+				// hago que todas las celdas de la tabla NO sean editables
+				return false;
+				}
+			};
+			tblAlumnos.setModel(dtmTabla);
+			// Podemos ordenar el contenido de la tabla de varias formas
+			tblAlumnos.setAutoCreateRowSorter(true);
+			tblAlumnos.getTableHeader().setReorderingAllowed(false);
+		  				
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Se ha producido un error");
+		}
+	}
+	
+	// Metodo para actualizar la tabla con los datos en el CachedRowSet
+	private void JTableActualizarCachedRowset() {
 		if (modificado){
 			try {
 				// Creo la conexion
@@ -285,6 +350,7 @@ public class VentanaAlumnosRowset extends JFrame {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Se ha producido un error");
 				JOptionPane.showMessageDialog(contenedor,(String)"Error. No se han podido grabar los datos","Error",JOptionPane.ERROR_MESSAGE,null);
+				JTableActualizarJtable();
 			}
 		}
 		
@@ -301,6 +367,7 @@ public class VentanaAlumnosRowset extends JFrame {
 	
 	// Metodo insertar alumnos en la basededatos y en la tabla
 	private void btnInsertarAlumnos() {
+		JTableActualizarJtable();
 		try {
 			// añado el registro al CachedRowSet
 			crs.moveToInsertRow();
@@ -314,6 +381,8 @@ public class VentanaAlumnosRowset extends JFrame {
 			modificado = true;
 			// Limpio los campos de texto
 			ClearFields();
+			// Guardar los cambios
+			JTableActualizarCachedRowset();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Se ha producido un error");

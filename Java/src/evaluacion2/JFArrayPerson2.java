@@ -52,11 +52,11 @@ public class JFArrayPerson2 extends JFrame {
 	private JButton btnEliminar;
 	private JButton btnMostrar;
 	private JButton btnBuscar;
-	private JList lstArray;
+	private JList<String> lstArray;
 	
 	// Definir un modelo de tabla
 	DefaultTableModel tblar = new DefaultTableModel();
-	DefaultListModel lstar = new DefaultListModel();
+	DefaultListModel<String> lstar = new DefaultListModel<>();
 	
 	// Insertar arraylist personas
 	//Persona valor = new Persona();
@@ -205,7 +205,7 @@ public class JFArrayPerson2 extends JFrame {
 		if (!personas.contains(valor)) {
 			// AÑADIR LA CADENA AL ARRAYLIST
 			personas.add(valor);
-			lstar.addElement(valor);
+			lstar.addElement(valor.toString());
 			
 			System.out.println("La persona ( "+valor+" ) se ha añadido.");
 		}
@@ -247,4 +247,5 @@ public class JFArrayPerson2 extends JFrame {
 		txtApellido.setText("");
 		txtFechan.setText("");
 	}
+
 }

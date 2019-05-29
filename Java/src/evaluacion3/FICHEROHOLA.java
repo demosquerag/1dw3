@@ -24,6 +24,9 @@ public class FICHEROHOLA {
 			bw.write("Hola mundo.");
 			bw.newLine();
 			bw.write("Qué tal?");
+			bw.write("Bien y tú?");
+			bw.newLine();
+			bw.write("Bien y tú?");
 			//cierro los recursos utilizados
 			bw.close();
 			pw.close();
