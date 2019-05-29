@@ -350,7 +350,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	
 	// Metodo para limpiar la lista
 	private void btnLimpiar() {
-		//
+		// Comprobar la lista
 		if (!dlmPersonas.isEmpty()) {
 			// Poner el contador de filas a 0
 			dlmPersonas.removeAllElements();
