@@ -290,39 +290,37 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 			// Mensaje de error
 			JOptionPane.showMessageDialog(contenedor,(String)"Error. No se puede dejar un campo en blanco.","Error",JOptionPane.ERROR_MESSAGE,null);
 		} else {
-			// Comprobar si la persona existe e insertarla
-			if (!personas.contains(valor)) {
-				// AÑADIR LA CADENA AL ARRAYLIST
-				personas.add(new Persona(valor));
-				for (int i = 0; i < dlmPersonas.size(); i++) {
-					if (dlmPersonas.get(i).getDni().equals(txtDni.getText())) {
-						JOptionPane.showMessageDialog(contenedor,(String)"Error. Esa persona ya existe en la lista.","Error",JOptionPane.ERROR_MESSAGE,null);
+			// Recorro la lista
+			for (int i = 0; i < dlmPersonas.size(); i++) {
+				// Compruebo el DNI
+				if (dlmPersonas.get(i).getDni().equals(txtDni.getText())) {
+					JOptionPane.showMessageDialog(contenedor,(String)"Error. Ya hay una persona con ese DNI, no se añadira a la lista .","Error",JOptionPane.ERROR_MESSAGE,null);
+					break;
+					
+				} else {
+					// Agrego la persona al array
+					personas.add(new Persona(valor));
+					// Añado la persona al JList
+					dlmPersonas.addElement(valor);
+					// Agrego el registro al CachedRowSet
+					try {
+						crs.moveToInsertRow();
+						crs.updateString(1, this.txtDni.getText());
+						crs.updateString(2, this.txtNombre.getText());
+						crs.updateString(3, this.txtApellido.getText());
+						crs.insertRow();
+						crs.moveToCurrentRow();
+						// Modifico el valor
+						modificado = true;
 						break;
-					} else {
-						// Agrego el registro al CachedRowSet
-						try {
-							crs.moveToInsertRow();
-							crs.updateString(1, this.txtDni.getText());
-							crs.updateString(2, this.txtNombre.getText());
-							crs.updateString(3, this.txtApellido.getText());
-							crs.insertRow();
-							crs.moveToCurrentRow();
-							// Añado la persona al JList
-							dlmPersonas.addElement(valor);
-							// Cambio el lblTexto
-							lblEstadoActual.setText("Datos modificados");
-							// Modifico el valor
-							modificado = true;
-							break;
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
+					// Cambio el lblTexto
+					lblEstadoActual.setText("Datos modificados");
 				}
-				
-			} else {
-				JOptionPane.showMessageDialog(contenedor,(String)"Error. Esa persona ya existe.","Error",JOptionPane.ERROR_MESSAGE,null);
 			}
+				
 		}
 		
 	}
