@@ -8,9 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetFactory;
-import javax.sql.rowset.RowSetProvider;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -23,7 +20,9 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -64,7 +63,6 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	private ArrayList<Persona> personas = new ArrayList<Persona>();
 	private boolean modificado = false;
 	private Connection conexion;
-	private CachedRowSet crs;
 	
 	// Inicializacion de la ventana
 	public static void main(String[] args) {
@@ -194,37 +192,33 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	
 	// Metodo para cargar los datos de bdexamen3 a JList
 	private void CargarDatos() {
-		// Try- Catch para mostrar la tabla
 		// Abro la concexion conectarse a MySQL
 		try {
 			// Creo la conexion
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdexamen3", "root", "");
-			// desactivo la actualizacion automatica de datos
-			conexion.setAutoCommit(false);
-			// creo el CachedRowSet
-			RowSetFactory myRowSetFactory = null;
-			myRowSetFactory = RowSetProvider.newFactory();
-			crs = myRowSetFactory.createCachedRowSet();
-			// selecciono todos los alumnos
-			// usando la conexion anterior
-			crs.setCommand("SELECT dni, nombre, apellido FROM personas");
-			crs.execute(conexion);
-			
-			
+			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/bdexamen3", "root", "");
+			// Creo un Statement st = conexion.createStatement();
+			Statement st = conexion.createStatement();
+			// Preparo la cosulta
+			String Consulta = "SELECT * FROM alumnos";
+			// Ejecuto la consulta 
+			ResultSet rs = st.executeQuery(Consulta);
+
 			// Agrego uno a uno las personas
-			while (crs.next()) {
+			while (rs.next()) {
 				// Creo una nueva persona
 				Persona valor = new Persona();
-				valor.setDni(crs.getString("dni").toString());
-				valor.setNombre(crs.getString("nombre").toString());
-				valor.setApellido(crs.getString("apellido").toString());
+				valor.setDni(rs.getString("dni").toString());
+				valor.setNombre(rs.getString("nombre").toString());
+				valor.setApellido(rs.getString("apellido").toString());
 				personas.add(valor);
 				// Agrego esa persona al JList
 				dlmPersonas.addElement(new Persona(valor));
 			}
 			
 			// Cierro el ResultSet
-			crs.close();
+			rs.close();
+			// Cierro el ResultSet
+			st.close();
 			// Cierro la conexion
 			conexion.close();
 		  				
@@ -253,12 +247,33 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 				// cierro el fichero
 				oos.close();
 				fos.close();
+				
 				// Creo la conexion
 				conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdexamen3", "root", "");
-				// Desactivo la actualizacion automatica de datos 
-				conexion.setAutoCommit(false);
-				// Aceptar los cambios
-				crs.acceptChanges(conexion);
+				// Creo un Statement st = conexion.createStatement();
+				Statement st = conexion.createStatement();
+				// Preparo la cosulta
+				String ConsultaDelete = "DELETE FROM bdexamen3.personas";
+				// Ejecuto la consulta 
+				st.executeUpdate(ConsultaDelete);
+				
+				// Necesidades previas
+				String dni = "", nombre = "", apellido = "";
+				String ConsultaInsert = "INSERT INTO personas VALUES ('"+dni+"','"+nombre+"','"+apellido+"')";
+				// Recorrer el array
+				for (int i = 0; i < personas.size(); i++) {
+					Persona valor = new Persona();
+					valor = personas.get(i);
+					dni = valor.getDni();
+					nombre = valor.getNombre();
+					apellido = valor.getApellido();
+					// Conslta para insertar los valores nuevos
+					st.executeUpdate(ConsultaInsert);
+				}
+				// Cierro el ResultSet
+				st.close();
+				// Cierro la conexion
+				conexion.close();
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -302,20 +317,6 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 					personas.add(new Persona(valor));
 					// Añado la persona al JList
 					dlmPersonas.addElement(valor);
-					// Agrego el registro al CachedRowSet
-					try {
-						crs.moveToInsertRow();
-						crs.updateString(1, this.txtDni.getText());
-						crs.updateString(2, this.txtNombre.getText());
-						crs.updateString(3, this.txtApellido.getText());
-						crs.insertRow();
-						crs.moveToCurrentRow();
-						// Modifico el valor
-						modificado = true;
-						break;
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
 					// Cambio el lblTexto
 					lblEstadoActual.setText("Datos modificados");
 				}
@@ -356,19 +357,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 			dlmPersonas.removeAllElements();
 			// Eliminar personas del ArrayList
 			personas.removeAll(personas);
-			// Borrar tabla crs
-			for (int i = 0; i < dlmPersonas.size(); i++) {
-				try {
-					// borro del crs el registro que está en la posición seleccionada
-					crs.absolute(i);
-					// borro el registro de esa posicion
-					crs.deleteRow();
-					// me posiciono en el primer registro para que los cambios tengan efecto
-					crs.first();
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(contenedor,(String)"Error. No se ha podido borrar el registro","Error",JOptionPane.ERROR_MESSAGE,null);
-				}
-			}
+			//
 			JOptionPane.showMessageDialog(contenedor,(String)"Se han limpiado correctamente los datos",":)",JOptionPane.ERROR_MESSAGE,null);
 			// Cambiar lblTexto
 			lblEstadoActual.setText("Datos modificados");
