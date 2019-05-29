@@ -329,17 +329,23 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	private void bntBorrar() {
 		// Creo un int que recoja la posicion seleccionada
 		int[] p = lstPersonas.getSelectedIndices();
-		// Elimino la fila seleccionada recogida con el int
-		for (int i = p.length-1; i >= 0; i--) {
-			// Eliminar personas seleccionadas
-			dlmPersonas.remove(p[i]);
-			// Eliminar la persona del ArrayList
-			personas.remove(personas.get(p[i]));
+		// Creo un int que recoja el array de opciones
+		int n = p.length;
+		
+		if (n > 0) {
+			// Elimino la fila seleccionada recogida con el int
+			for (int i = p.length-1; i >= 0; i--) {
+				// Eliminar personas seleccionadas
+				dlmPersonas.remove(p[i]);
+				// Eliminar la persona del ArrayList
+				personas.remove(personas.get(p[i]));
+			}
+			// Cambiar lblTexto
+			lblEstadoActual.setText("Datos modificados");
+			// Cambio el valor de modificado
+			modificado = true;
 		}
-		// Cambiar lblTexto
-		lblEstadoActual.setText("Datos modificados");
-		// Cambio el valor de modificado
-		modificado = true;
+		
 	}
 	
 	// Metodo para limpiar la lista
