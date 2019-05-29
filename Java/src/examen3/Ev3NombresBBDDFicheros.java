@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.text.JTextComponent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.sql.rowset.CachedRowSet;
@@ -85,12 +85,16 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				GuardarDatos();
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha creado el fichero correctamente.",":)",JOptionPane.ERROR_MESSAGE,null);
+				if (modificado == true) {
+					GuardarDatos();
+					JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha creado el fichero correctamente.",":)",JOptionPane.ERROR_MESSAGE,null);
+				}
+				// Cerrar aplicaion
+				System.exit(0);
 			}
 		});
 		setTitle("Ex3NombreBBDDFicheros ");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 822, 336);
 		contenedor = new JPanel();
 		contenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -105,6 +109,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 
 		txtDni = new JTextField();
 		txtDni.addActionListener(this);
+		txtDni.addFocusListener(this);
 		panelDatos.add(txtDni);
 		txtDni.setColumns(10);
 
@@ -114,6 +119,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 
 		txtNombre = new JTextField();
 		txtNombre.addActionListener(this);
+		txtNombre.addFocusListener(this);
 		txtNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		panelDatos.add(txtNombre);
@@ -124,6 +130,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 
 		txtApellido = new JTextField();
 		txtApellido.addActionListener(this);
+		txtApellido.addFocusListener(this);
 		txtApellido.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		panelDatos.add(txtApellido);
@@ -371,17 +378,17 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	// Implementacion de focus ganado
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		txtDni.select(0, txtNombre.getText().length());
-		txtNombre.select(0, txtNombre.getText().length());
-		txtApellido.select(0, txtNombre.getText().length());
+		JTextComponent jtc = (JTextComponent) arg0.getSource();
+		jtc.setSelectionStart(0);
+		jtc.setSelectionEnd(jtc.getText().length());
 	}
 
 	// Implementacion de focus perdido
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		txtDni.select(0, 0);
-		txtNombre.select(0, 0);
-		txtApellido.select(0, 0);
+		JTextComponent jtc = (JTextComponent) arg0.getSource();
+		jtc.setSelectionStart(0);
+		jtc.setSelectionEnd(0);
 	}
 	
 }
