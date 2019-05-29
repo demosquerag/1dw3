@@ -350,26 +350,34 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	
 	// Metodo para limpiar la lista
 	private void btnLimpiar() {
-		// Eliminar personas del ArrayList
-		personas.removeAll(personas);
-		// Poner el contador de filas a 0
-		dlmPersonas.removeAllElements();
-		for (int i = 0; i < dlmPersonas.size(); i++) {
-			try {
-				// borro del crs el registro que está en la posición seleccionada
-				crs.absolute(i);
-				// borro el registro de esa posicion
-				crs.deleteRow();
-				// me posiciono en el primer registro para que los cambios tengan efecto
-				crs.first();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(contenedor,(String)"Error. No se ha podido borrar el registro","Error",JOptionPane.ERROR_MESSAGE,null);
+		//
+		if (!dlmPersonas.isEmpty()) {
+			// Poner el contador de filas a 0
+			dlmPersonas.removeAllElements();
+			// Eliminar personas del ArrayList
+			personas.removeAll(personas);
+			// Borrar tabla crs
+			for (int i = 0; i < dlmPersonas.size(); i++) {
+				try {
+					// borro del crs el registro que está en la posición seleccionada
+					crs.absolute(i);
+					// borro el registro de esa posicion
+					crs.deleteRow();
+					// me posiciono en el primer registro para que los cambios tengan efecto
+					crs.first();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(contenedor,(String)"Error. No se ha podido borrar el registro","Error",JOptionPane.ERROR_MESSAGE,null);
+				}
 			}
+			JOptionPane.showMessageDialog(contenedor,(String)"Se han limpiado correctamente los datos",":)",JOptionPane.ERROR_MESSAGE,null);
+			// Cambiar lblTexto
+			lblEstadoActual.setText("Datos modificados");
+			// Cambio el valor de modificado
+			modificado = true;
+		} else {
+			JOptionPane.showMessageDialog(contenedor,(String)"Error. La lista ya esta limpia","Error",JOptionPane.ERROR_MESSAGE,null);
 		}
-		// Cambiar lblTexto
-		lblEstadoActual.setText("Datos modificados");
-		// Cambio el valor de modificado
-		modificado = true;
+		
 	}
 
 	
