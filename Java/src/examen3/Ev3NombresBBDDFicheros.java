@@ -199,7 +199,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 			// Creo un Statement st = conexion.createStatement();
 			Statement st = conexion.createStatement();
 			// Preparo la cosulta
-			String Consulta = "SELECT * FROM alumnos";
+			String Consulta = "SELECT * FROM personas";
 			// Ejecuto la consulta 
 			ResultSet rs = st.executeQuery(Consulta);
 
@@ -212,7 +212,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 				valor.setApellido(rs.getString("apellido").toString());
 				personas.add(valor);
 				// Agrego esa persona al JList
-				dlmPersonas.addElement(new Persona(valor));
+				dlmPersonas.addElement(valor);
 			}
 			
 			// Cierro el ResultSet
@@ -259,7 +259,7 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 				
 				// Necesidades previas
 				String dni = "", nombre = "", apellido = "";
-				String ConsultaInsert = "INSERT INTO personas VALUES ('"+dni+"','"+nombre+"','"+apellido+"')";
+				
 				// Recorrer el array
 				for (int i = 0; i < personas.size(); i++) {
 					Persona valor = new Persona();
@@ -267,6 +267,8 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 					dni = valor.getDni();
 					nombre = valor.getNombre();
 					apellido = valor.getApellido();
+					// Creo una nueva consulta
+					String ConsultaInsert = "INSERT INTO personas VALUES ('"+dni+"','"+nombre+"','"+apellido+"')";
 					// Conslta para insertar los valores nuevos
 					st.executeUpdate(ConsultaInsert);
 				}
@@ -287,20 +289,27 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 	
 	// Metodo para recoger los datos de la JTable y pasarlos a JTextFields
 	private void JListToJTextField() {
-		// Necesidades previas
 		// Llenar los campos
-		this.txtDni.setText(lstPersonas.getSelectedValue().getDni());
-		this.txtNombre.setText(lstPersonas.getSelectedValue().getNombre());
-		this.txtApellido.setText(lstPersonas.getSelectedValue().getApellido());
+		if (!dlmPersonas.isEmpty()) {
+			this.txtDni.setText(lstPersonas.getSelectedValue().getDni());
+			this.txtNombre.setText(lstPersonas.getSelectedValue().getNombre());
+			this.txtApellido.setText(lstPersonas.getSelectedValue().getApellido());
+		} else {
+			JOptionPane.showMessageDialog(contenedor,(String)"Error. No se ha seleccionado nada, la lista esta vacia.","Error",JOptionPane.ERROR_MESSAGE,null);
+		}
+		
 	}
 	
 	// Metodo para guardar los datos en JList
 	private void btnGuardar() {
+		// Necesidades previas
+		boolean comprobado = false;
 		Persona valor = new Persona();
 		valor.setDni(txtDni.getText());
 		valor.setNombre(txtNombre.getText());
 		valor.setApellido(txtApellido.getText());
 		
+		// Comprobar que los campos de texto no esten vacios
 		if (txtDni.getText().equals("") || txtNombre.getText().equals("") || txtApellido.getText().equals("")) {
 			// Mensaje de error
 			JOptionPane.showMessageDialog(contenedor,(String)"Error. No se puede dejar un campo en blanco.","Error",JOptionPane.ERROR_MESSAGE,null);
@@ -308,20 +317,26 @@ public class Ev3NombresBBDDFicheros extends JFrame implements ActionListener, Fo
 			// Recorro la lista
 			for (int i = 0; i < dlmPersonas.size(); i++) {
 				// Compruebo el DNI
-				if (dlmPersonas.get(i).getDni().equals(txtDni.getText())) {
+				if (dlmPersonas.get(i).getDni().equals(valor.getDni())) {
+					// Salida de mensaje
 					JOptionPane.showMessageDialog(contenedor,(String)"Error. Ya hay una persona con ese DNI, no se añadira a la lista .","Error",JOptionPane.ERROR_MESSAGE,null);
+					// Modifico el boolean de comprobacion
+					comprobado = true;
 					break;
-					
-				} else {
-					// Agrego la persona al array
-					personas.add(new Persona(valor));
-					// Añado la persona al JList
-					dlmPersonas.addElement(valor);
-					// Cambio el lblTexto
-					lblEstadoActual.setText("Datos modificados");
 				}
 			}
-				
+			// Condicion de comprobacion
+			if (comprobado == false) {
+				// Agrego la persona al array
+				personas.add(valor);
+				// Añado la persona al JList
+				dlmPersonas.addElement(valor);
+				// Cambio el lblTexto
+				lblEstadoActual.setText("Datos modificados");
+				// Cambio el valor de modificado
+				modificado = true;
+			}
+			
 		}
 		
 	}
