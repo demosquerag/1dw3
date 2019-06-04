@@ -1,0 +1,16 @@
+﻿create database bdfinal1 collate utf8_spanish_ci;
+
+create table vehiculos(
+matricula varchar(9) primary key,
+marca varchar(30) not null,
+modelo varchar(50) not null
+);
+
+insert into vehiculos values ('1111AAA','M1','MO11');
+insert into vehiculos values ('2222AAA','M1','MO12');
+insert into vehiculos values ('3333AAA','M1','MO13');
+insert into vehiculos values ('4444BBB','M2','MO21');
+insert into vehiculos values ('5555AAA','M2','MO22');
+insert into vehiculos values ('6666CCC','M3','MO31');
+insert into vehiculos values ('7777AAA','M1','MO12');
+insert into vehiculos values ('8888CCC','M3','MO32');
