@@ -7,7 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -71,6 +73,7 @@ public class BDAlumnosCalificaciones extends JFrame {
 	
 	ArrayList<Calificaciones> calificacion = new ArrayList<>();
 	ArrayList<Alumnos> alumno = new ArrayList<>();
+	private TableRowSorter<TableModel> metodoOrdenacion;
 	
 	private int registroActual = 0;
 	private int numeroRegistros = 0;
@@ -157,15 +160,35 @@ public class BDAlumnosCalificaciones extends JFrame {
 		contenedor.add(panelBotones, BorderLayout.SOUTH);
 
 		btnInsertar = new JButton("Insertar");
+		btnInsertar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bntInsertar();
+			}
+		});
 		panelBotones.add(btnInsertar);
 
 		btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBorrar();
+			}
+		});
 		panelBotones.add(btnBorrar);
 
 		btnActualizar = new JButton("Actualizar");
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnActualizar();
+			}
+		});
 		panelBotones.add(btnActualizar);
 
 		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnSalir();
+			}
+		});
 		panelBotones.add(btnSalir);
 
 		panelInformacion = new JPanel();
@@ -436,6 +459,11 @@ public class BDAlumnosCalificaciones extends JFrame {
 		txtNombre.setText(Nombre);
 		txtApellidos.setText(Apellidos);
 		txtGrupo.setText(Grupo);
+		
+		// Ordenar la tabla por dni seleccionado
+		metodoOrdenacion = new TableRowSorter<TableModel>(dtmTabla);
+		tablaCalificaciones.setRowSorter(metodoOrdenacion);
+		metodoOrdenacion.setRowFilter(RowFilter.regexFilter(txtDni.getText(), 0));
 	}
 	
 	// Metodo ir al primer registro
@@ -488,6 +516,75 @@ public class BDAlumnosCalificaciones extends JFrame {
 			}
 		} else {
 			JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. No hay mas registros.",":)",JOptionPane.ERROR_MESSAGE,null);
+		}
+	}
+	
+	// Metodo para insertar un nuevo vehiculo
+	private void bntInsertar() {
+		// Creo un nuevo vehiculo
+		Alumnos alu = new Alumnos();
+		alu.setDni(txtDni.getText());
+		alu.setNombre(txtNombre.getText());
+		alu.setApellidos(txtApellidos.getText());
+		alu.setGrupo(txtGrupo.getText());
+		// recorro la lista
+		for (int i = 0; i < alumno.size(); i++) {
+			if (alumno.get(i).getDni().equals(txtDni.getText())) {
+				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Ya hay un alumno con ese DNI",":)",JOptionPane.ERROR_MESSAGE,null);
+				break;
+			} else {
+				alumno.add(new Alumnos(alu));
+				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha insertado el alumno",":)",JOptionPane.ERROR_MESSAGE,null);
+				modificado = true;
+			}
+		}
+		
+	}
+	
+	// Metodo para borrar un vehiculo
+	private void btnBorrar() {
+		Alumnos alu = new Alumnos();
+		alu.setDni(txtDni.getText());
+		alu.setNombre(txtNombre.getText());
+		alu.setApellidos(txtApellidos.getText());
+		alu.setGrupo(txtGrupo.getText());
+		// recorro la lista
+		for (int i = 0; i < alumno.size(); i++) {
+			if (alumno.get(i).getDni().equals(txtDni.getText())) {
+				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha elimiado el vehiculo",":)",JOptionPane.ERROR_MESSAGE,null);
+				alumno.remove(alu);
+				modificado = true;
+				break;
+			} else {
+				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. No hay coche con esa matricula",":)",JOptionPane.ERROR_MESSAGE,null);
+			}
+		}
+	}
+	
+	// Metodo para actualizar vehiculo
+	private void btnActualizar() {
+		Alumnos alu = new Alumnos();
+		alu.setDni(txtDni.getText());
+		alu.setNombre(txtNombre.getText());
+		alu.setApellidos(txtApellidos.getText());
+		alu.setGrupo(txtGrupo.getText());
+		// recorro la lista
+		for (int i = 0; i < alumno.size(); i++) {
+			if (alumno.get(i).getDni().equals(alu.getDni())) {
+				alumno.set(i, alu);
+				modificado = true;
+			}
+		}
+		
+	}
+	
+	// Metodo para salir de la aplicacion
+	private void btnSalir() {
+		// Salir de la aplicacion
+		if (modificado == true) {
+			guardarDatos();
+		} else {
+			dispose();
 		}
 	}
 

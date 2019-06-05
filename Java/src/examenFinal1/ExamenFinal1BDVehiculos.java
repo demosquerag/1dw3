@@ -53,6 +53,7 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 	
 	
 	private boolean modificado = false;
+	private boolean comprobado = false;
 	private int registroActual = 0;
 	private int numeroRegistros = 0;
 	ArrayList<Vehiculos> coches = new ArrayList<>();
@@ -326,14 +327,23 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 		// recorro la lista
 		for (int i = 0; i < coches.size(); i++) {
 			if (coches.get(i).getMatricula().equals(coche.getMatricula())) {
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Ya hay un coche con esa matricula",":)",JOptionPane.ERROR_MESSAGE,null);
+				JOptionPane.showMessageDialog(contenedor,(String)"Ya hay un coche con esa matricula",":)",JOptionPane.ERROR_MESSAGE,null);
+				// Cambio el valor de comprobado
+				comprobado = true;
 				break;
-			} else {
-				coches.add(new Vehiculos(coche));
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha insertado el vehiculo",":)",JOptionPane.ERROR_MESSAGE,null);
-				modificado = true;
 			}
+			
 		}
+		
+		if (comprobado == false) {
+			// Agregar el nuevo coche
+			coches.add(new Vehiculos(coche));
+			JOptionPane.showMessageDialog(contenedor,(String)"Se ha insertado el vehiculo",":)",JOptionPane.ERROR_MESSAGE,null);
+			// Cambio el valor
+			modificado = true;
+		}
+		
+		actualizarCampos();
 		
 	}
 	
@@ -345,15 +355,28 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 		coche.setModelo(txtModelo.getText());
 		// recorro la lista
 		for (int i = 0; i < coches.size(); i++) {
-			if (coches.get(i).getMatricula().equals(txtMatricula.getText().toString())) {
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha elimiado el vehiculo",":)",JOptionPane.ERROR_MESSAGE,null);
+			if (coches.get(i).getMatricula().equals(coche.getMatricula())) {
+				JOptionPane.showMessageDialog(contenedor,(String)"Se ha elimiado el vehiculo",":(",JOptionPane.ERROR_MESSAGE,null);
+				// Elimino el coche
 				coches.remove(coche);
+				// Cambio el valor
 				modificado = true;
 				break;
-			} else {
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. No hay coche con esa matricula",":)",JOptionPane.ERROR_MESSAGE,null);
 			}
 		}
+		// Si la lista esta vacia
+		if (coches.isEmpty() || coches.size() == 0) {
+			// limpiar campos de texto
+			txtMatricula.setText("");
+			txtMarca.setText("");
+			txtModelo.setText("");
+			// Cambiar lblTexto
+			registroActual = 0;
+			numeroRegistros = coches.size();
+			lblRegistros.setText("Vehiculo Registro: " + registroActual + " de " + numeroRegistros);
+			JOptionPane.showMessageDialog(contenedor,(String)"No hay mas registros",":(",JOptionPane.ERROR_MESSAGE,null);
+		}
+		
 	}
 	
 	// Metodo para actualizar vehiculo
@@ -367,6 +390,7 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 			if (coches.get(i).getMatricula().equals(coche.getMatricula())) {
 				coches.set(i, coche);
 				modificado = true;
+				break;
 			}
 		}
 		
@@ -376,10 +400,13 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 	private void btnSalir() {
 		// Salir de la aplicacion
 		if (modificado == true) {
+			// Guardo los datos
 			guardarDatos();
-		} else {
-			dispose();
+			JOptionPane.showMessageDialog(contenedor,(String)"Se ha creado el fichero correctamente.",":)",JOptionPane.ERROR_MESSAGE,null);
 		}
+		// Cierro la aplicacion
+		System.exit(0);
+		
 	}
 	
 	// Metodo para actualizar el lbltexto
@@ -435,6 +462,11 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 				registroActual++;
 				// Actualizar los campos y lbltexto
 				actualizarCampos();
+			} else if (registroActual > coches.size()) {
+				// Restar una posicion
+				registroActual--;
+				// Actualizar los campos y lbltexto
+				actualizarCampos();
 			}
 		} else {
 			JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. No hay mas registros.",":)",JOptionPane.ERROR_MESSAGE,null);
@@ -444,8 +476,13 @@ public class ExamenFinal1BDVehiculos extends JFrame{
 	// Metodo ir al anterior registro
 	private void btnAnterior() {
 		if (!coches.isEmpty()) {
-			if (!(registroActual == 1)) {
+			if (registroActual <= 0) {
 				// Restar una posicion
+				registroActual = 1;
+				// Actualizar los campos y lbltexto
+				actualizarCampos();
+			} else if (!(registroActual == 1)) {
+				// Sumar una posicion
 				registroActual--;
 				// Actualizar los campos y lbltexto
 				actualizarCampos();
