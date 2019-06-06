@@ -663,11 +663,11 @@ public class BDAlumnosCompleto extends JFrame {
 		// recorro la lista
 		for (int i = 0; i < alumno.size(); i++) {
 			if (alumno.get(i).getDni().equals(txtDni.getText())) {
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Ya hay un alumno con ese DNI",":)",JOptionPane.ERROR_MESSAGE,null);
+				JOptionPane.showMessageDialog(contenedor,(String)"Ya hay un alumno con ese DNI",":)",JOptionPane.ERROR_MESSAGE,null);
 				break;
 			} else {
 				alumno.add(new Alumnos(alu));
-				JOptionPane.showMessageDialog(contenedor,(String)"Hmmm. Se ha insertado el alumno",":)",JOptionPane.ERROR_MESSAGE,null);
+				JOptionPane.showMessageDialog(contenedor,(String)"Se ha insertado el alumno",":)",JOptionPane.ERROR_MESSAGE,null);
 				modificado = true;
 			}
 		}
