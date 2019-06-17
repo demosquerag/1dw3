@@ -103,9 +103,9 @@ public class Examen1Menu extends JFrame {
 		}
 		// Si es primo
 		if (primo == true) {
-			lblResultado.setText("El numero "+num2+" es primo.");
+			lblResultado.setText("El numero "+num+" es primo.");
 		} else { // Si no...
-			lblResultado.setText("El numero "+num2+" no es primo.");
+			lblResultado.setText("El numero "+num+" no es primo.");
 		}
 		
 	}
