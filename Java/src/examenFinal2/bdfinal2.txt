@@ -1,0 +1,16 @@
+﻿create database bdfinal2 collate utf8_spanish_ci;
+
+create table bdfinal2.alumnos(
+dni varchar(9) primary key,
+nombre varchar(30) not null,
+apellidos varchar(50) not null
+);
+
+insert into bdfinal2.alumnos values ('1111AAA','N1','A11 A12');
+insert into bdfinal2.alumnos values ('2222AAA','N2','A21 A22');
+insert into bdfinal2.alumnos values ('3333AAA','N3','A31 A32');
+insert into bdfinal2.alumnos values ('4444BBB','N4','A41 A42');
+insert into bdfinal2.alumnos values ('5555AAA','N5','A51 A52');
+insert into bdfinal2.alumnos values ('6666CCC','N6','A61 A62');
+insert into bdfinal2.alumnos values ('7777AAA','N7','A71 A72');
+insert into bdfinal2.alumnos values ('8888CCC','N8','A81 A82');
